@@ -11,12 +11,12 @@ public class CBDeviceListenerImpl: NSObject, CBCentralManagerDelegate {
     ])
   
     public func centralManager(_ central: CBCentralManager, willRestoreState dict: [String : Any]) {
-    BleLogger.trace("willRestoreState called with dict: ", dict)
+    BleLogger.trace("willRestoreState called with dict: \(dict)")
       let devices = dict[CBCentralManagerRestoredStatePeripheralsKey]
       if (devices != nil){
-        BleLogger.trace("willRestoreState found devices: ", devices)
+        BleLogger.trace("willRestoreState found devices: \(devices)")
         for device in devices as! [CBPeripheral] {
-          BleLogger.trace("willRestoreState found device: ", device)
+          BleLogger.trace("willRestoreState found device: \(device)")
         }
       }
     }
