@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // ATTENTION! Replace with the device ID from your device.
-    private var deviceId = "8C4E5023"
+    private var deviceId = "BC15022D"
 
     private val api: PolarBleApi by lazy {
         // Notice all features are enabled
@@ -48,7 +48,8 @@ class MainActivity : AppCompatActivity() {
                 PolarBleApi.PolarBleSdkFeature.FEATURE_POLAR_OFFLINE_RECORDING,
                 PolarBleApi.PolarBleSdkFeature.FEATURE_POLAR_ONLINE_STREAMING,
                 PolarBleApi.PolarBleSdkFeature.FEATURE_POLAR_DEVICE_TIME_SETUP,
-                PolarBleApi.PolarBleSdkFeature.FEATURE_DEVICE_INFO
+                PolarBleApi.PolarBleSdkFeature.FEATURE_DEVICE_INFO,
+                PolarBleApi.PolarBleSdkFeature.FEATURE_POLAR_LED_ANIMATION
             )
         )
     }
@@ -95,6 +96,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var getTimeButton: Button
     private lateinit var toggleSdkModeButton: Button
     private lateinit var getDiskSpaceButton: Button
+    private lateinit var changeSdkModeLedAnimationStatusButton: Button
+    private lateinit var changePpiModeLedAnimationStatusButton: Button
+    private lateinit var doFactoryResetButton: Button
 
     //Verity Sense offline recording use
     private lateinit var listRecordingsButton: Button
@@ -130,6 +134,10 @@ class MainActivity : AppCompatActivity() {
         getTimeButton = findViewById(R.id.get_time)
         toggleSdkModeButton = findViewById(R.id.toggle_SDK_mode)
         getDiskSpaceButton = findViewById(R.id.get_disk_space)
+        changeSdkModeLedAnimationStatusButton = findViewById(R.id.change_sdk_mode_led_animation_status)
+        changePpiModeLedAnimationStatusButton = findViewById(R.id.change_ppi_mode_led_animation_status)
+        doFactoryResetButton = findViewById(R.id.do_factory_reset)
+
         //Verity Sense recording buttons
         listRecordingsButton = findViewById(R.id.list_recordings)
         startRecordingButton = findViewById(R.id.start_recording)
@@ -855,6 +863,58 @@ class MainActivity : AppCompatActivity() {
                         showToast("Disk space left: ${diskSpace.freeSpace}/${diskSpace.totalSpace} Bytes")
                     },
                     { error: Throwable -> Log.e(TAG, "get disk space failed: $error") }
+                )
+        }
+
+        var enableSdkModelLedAnimation = false
+        var enablePpiModeLedAnimation = false
+        changeSdkModeLedAnimationStatusButton.setOnClickListener {
+            api.setLedConfig(deviceId, LedConfig(
+                sdkModeLedEnabled = enableSdkModelLedAnimation,
+                ppiModeLedEnabled = !enablePpiModeLedAnimation))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        Log.d(TAG, "SdkModeledAnimationEnabled set to $enableSdkModelLedAnimation")
+                        showToast("SdkModeLedAnimationEnabled set to $enableSdkModelLedAnimation")
+                        changeSdkModeLedAnimationStatusButton.text =
+                            if (enableSdkModelLedAnimation) getString(R.string.disable_sdk_mode_led_animation) else getString(
+                                R.string.enable_sdk_mode_led_animation
+                            )
+                        enableSdkModelLedAnimation = !enableSdkModelLedAnimation
+                    },
+                    { error: Throwable -> Log.e(TAG, "changeSdkModeLedAnimationStatus failed: $error") }
+                )
+        }
+
+        changePpiModeLedAnimationStatusButton.setOnClickListener {
+            api.setLedConfig(deviceId, LedConfig(
+                sdkModeLedEnabled = !enableSdkModelLedAnimation,
+                ppiModeLedEnabled = enablePpiModeLedAnimation))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        Log.d(TAG, "PpiModeLedAnimationEnabled set to $enablePpiModeLedAnimation")
+                        showToast("PpiModeLedAnimationEnabled set to $enablePpiModeLedAnimation")
+                        changePpiModeLedAnimationStatusButton.text =
+                            if (enablePpiModeLedAnimation) getString(R.string.disable_ppi_mode_led_animation) else getString(
+                                R.string.enable_ppi_mode_led_animation
+                            )
+                        enablePpiModeLedAnimation = !enablePpiModeLedAnimation
+                    },
+                    { error: Throwable -> Log.e(TAG, "changePpiModeLedAnimationStatus failed: $error") }
+                )
+        }
+
+        doFactoryResetButton.setOnClickListener {
+            api.doFactoryReset(deviceId, preservePairingInformation = true)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        Log.d(TAG, "send do factory reset to device")
+                        showToast("send do factory reset to device")
+                    },
+                    { error: Throwable -> Log.e(TAG, "doFactoryReset() failed: $error") }
                 )
         }
 

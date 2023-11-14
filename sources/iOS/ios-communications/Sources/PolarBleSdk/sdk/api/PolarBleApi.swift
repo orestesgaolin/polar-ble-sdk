@@ -260,16 +260,26 @@ public protocol PolarBleApi: PolarOfflineRecordingApi, PolarOnlineStreamingApi, 
     ///   - success: once after disk space received from device
     ///   - onError: see `PolarErrors` for possible errors invoked
     func getDiskSpace(_ identifier: String) -> Single<PolarDiskSpaceData>
-    
-    /// Enable or disable blinking sensor LEDs (Verity Sense).
+
+    /// Set [LedConfig] to enable or disable blinking LEDs (Verity Sense 2.2.1+).
     ///
     /// - Parameters:
     ///   - identifier: polar device id or UUID
-    ///   - enable: to enable or disable LEDs blinking
+    ///   - ledConfig: to enable or disable LEDs blinking
     /// - Returns: Completable stream
     ///   - success: when enable or disable sent to device
     ///   - onError: see `PolarErrors` for possible errors invoked
-    func enableLedAnimation(_ identifier: String, enable: Bool) -> Completable
+    func setLedConfig(_ identifier: String, ledConfig: LedConfig) -> Completable
+
+    /// Perform factory reset to given device.
+    ///
+    /// - Parameters:
+    ///   - identifier: polar device id or UUID
+    ///   - preservePairingInformation: preserve pairing information during factory reset
+    /// - Returns: Completable stream
+    ///   - success: when factory reset notification sent to device
+    ///   - onError: see `PolarErrors` for possible errors invoked
+    func doFactoryReset(_ identifier: String, preservePairingInformation: Bool) -> Completable
     
     /// Common GAP (Generic access profile) observer
     var observer: PolarBleApiObserver? { get set }

@@ -246,11 +246,20 @@ abstract class PolarBleApi(val features: Set<PolarBleSdkFeature>) : PolarOnlineS
     abstract fun getDiskSpace(identifier: String): Single<PolarDiskSpaceData>
 
     /**
-     * Enable or disable blinking sensor LEDs (Verity Sense).
+     * Set [LedConfig] for device (Verity Sense 2.2.1+).
      *
      * @param identifier Polar device ID or BT address
-     * @param enable to enable or disable LEDs blinking
+     * @param ledConfig new [LedConfig]
+     + @return [Completable] emitting success or error
+     */
+    abstract fun setLedConfig(identifier: String, ledConfig: LedConfig): Completable
+
+    /**
+     * Perform factory reset to given device.
+     *
+     * @param identifier Polar device ID or BT address
+     * @param preservePairingInformation preserve pairing information during factory reset
      * @return [Completable] emitting success or error
      */
-    abstract fun enableLedAnimation(identifier: String, enable: Boolean): Completable
+    abstract fun doFactoryReset(identifier: String, preservePairingInformation: Boolean): Completable
 }

@@ -10,6 +10,8 @@ struct DeviceSettingsView: View {
     @State private var isPerformingTimeGet = false
     @State private var isPerformingDiskSpaceGet = false
     @State private var isPerformingSdkModeStatusGet = false
+    @State private var isSdkModeLedAnimationEnabled = false
+    @State private var isPpiModeLedAnimationEnabled = false
     
     var body: some View {
         VStack {
@@ -97,6 +99,31 @@ struct DeviceSettingsView: View {
             await bleSdkManager.getSdkModeStatus()
             isPerformingSdkModeStatusGet = false
         }
+        
+        Button(isSdkModeLedAnimationEnabled ? "Enable SDK mode LED animation" : "Disable SDK mode LED animation",
+               action: {
+            Task {
+                let ledConfig = LedConfig(sdkModeLedEnabled: isSdkModeLedAnimationEnabled, ppiModeLedEnabled: !isPpiModeLedAnimationEnabled)
+                await bleSdkManager.setLedConfig(ledConfig: ledConfig)
+                isSdkModeLedAnimationEnabled = !isSdkModeLedAnimationEnabled
+            }
+        }).buttonStyle(SecondaryButtonStyle(buttonState: ButtonState.released))
+        
+        Button(isPpiModeLedAnimationEnabled ? "Enable PPI mode LED animation" : "Disable PPI mode LED animation",
+               action: {
+            Task {
+                let ledConfig = LedConfig(sdkModeLedEnabled: !isSdkModeLedAnimationEnabled, ppiModeLedEnabled: isPpiModeLedAnimationEnabled)
+                await bleSdkManager.setLedConfig(ledConfig: ledConfig)
+                isPpiModeLedAnimationEnabled = !isPpiModeLedAnimationEnabled
+            }
+        }).buttonStyle(SecondaryButtonStyle(buttonState: ButtonState.released))
+
+        Button("Do factory reset",
+               action: {
+            Task {
+                await bleSdkManager.doFactoryReset(preservePairingInformation: true)
+            }
+        }).buttonStyle(SecondaryButtonStyle(buttonState: ButtonState.released))
     }
     
     func getTimeButtonState() -> ButtonState {
