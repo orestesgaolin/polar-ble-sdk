@@ -7,7 +7,7 @@ public class CBDeviceListenerImpl: NSObject, CBCentralManagerDelegate {
     private let SESSION_TEAR_DOWN_TIMEOUT_MS = 1000
   
     fileprivate lazy var manager = CBCentralManager(delegate: self, queue: queueBle, options: [
-      CBCentralManagerOptionRestoreIdentifierKey: "com.visible.heartRateCentralManagerState"
+      CBCentralManagerOptionRestoreIdentifierKey: "PolarBleSDKCBCentralManagerOptionRestoreIdentifierKey"
     ])
   
     public func centralManager(_ central: CBCentralManager, willRestoreState dict: [String : Any]) {
