@@ -48,8 +48,8 @@ Optical heart rate sensor is a rechargeable device that measures user’s heart 
 * Accelerometer data with sample rate of 52Hz and range of 8G. Axis specific acceleration data in mG.
 * Gyroscope data with sample rate of 52Hz and ranges of 250dps, 500dps, 1000dps and 2000dps. Axis specific gyroscope data in dps.
 * Magnetometer data with sample rates of 10Hz, 20Hz, 50HZ and 100Hz and range of +/-50 Gauss. Axis specific magnetometer data in Gauss.
-* [SDK mode](documentation/SdkModeExplained.md) (from version 1.1.5 onwards)
-* [Offline recording](documentation/OfflineRecordingExplained.md) (from version 2.1.0 onwards)
+* [SDK mode](documentation/SdkModeExplained.md) from version 1.1.5 onwards.
+* [Offline recording](documentation/OfflineRecordingExplained.md) from version 2.1.0 onwards.
 
 ### OH1 Optical heart rate sensor
 Optical heart rate sensor is a rechargeable device that measures user’s heart rate with LED technology.
@@ -77,7 +77,7 @@ Fitness and wellness watch.
 Fitness and wellness watch.
 [Store page](https://www.polar.com/en/vantage/v3)
 
-### Polar Vantage V3 features available by the SDK
+#### Polar Vantage V3 features available by the SDK
 * Heart rate as beats per minute.
 * Heart rate broadcast.
 * PP interval (milliseconds) representing cardiac pulse-to-pulse interval extracted from PPG signal.
