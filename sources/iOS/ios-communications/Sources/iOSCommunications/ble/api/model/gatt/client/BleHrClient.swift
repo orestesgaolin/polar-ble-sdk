@@ -35,7 +35,7 @@ public class BleHrClient: BleGattClientBase {
     public init(gattServiceTransmitter: BleAttributeTransportProtocol){
         super.init(serviceUuid: BleHrClient.HR_SERVICE, gattServiceTransmitter: gattServiceTransmitter)
         addCharacteristicRead(BleHrClient.BODY_SENSOR_LOCATION)
-        automaticEnableNotificationsOnConnect(chr: BleHrClient.HR_MEASUREMENT, disableOnDisconnect:true)
+        automaticEnableNotificationsOnConnect(chr: BleHrClient.HR_MEASUREMENT)
     }
     
     // from base
