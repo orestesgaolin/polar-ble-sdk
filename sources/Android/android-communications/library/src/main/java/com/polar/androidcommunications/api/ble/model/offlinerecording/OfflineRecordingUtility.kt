@@ -12,6 +12,7 @@ internal object OfflineRecordingUtility {
             "PPG.REC" -> PmdMeasurementType.PPG
             "PPI.REC" -> PmdMeasurementType.PPI
             "HR.REC" -> PmdMeasurementType.OFFLINE_HR
+            "HR0.REC" -> PmdMeasurementType.OFFLINE_HR
             else -> throw Exception("Unknown offline file $fileName")
         }
     }
