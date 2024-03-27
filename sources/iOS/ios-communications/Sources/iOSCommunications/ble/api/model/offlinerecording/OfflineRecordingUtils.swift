@@ -11,6 +11,7 @@ class OfflineRecordingUtils {
         case "PPG.REC": return PmdMeasurementType.ppg
         case "PPI.REC": return PmdMeasurementType.ppi
         case "HR.REC": return PmdMeasurementType.offline_hr
+        case "HR0.REC": return PmdMeasurementType.offline_hr
         default: throw BleGattException.gattDataError(description: "Unknown offline file \(fileName)")
         }
     }
