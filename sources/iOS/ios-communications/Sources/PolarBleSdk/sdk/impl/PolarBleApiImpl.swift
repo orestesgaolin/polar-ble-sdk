@@ -1149,9 +1149,18 @@ extension PolarBleApiImpl: PolarBleApi  {
                 guard let date = dateFormatter.date(from: String(components[2] + components[4])) else {
                     throw PolarErrors.dateTimeFormatFailed(description: "Listing offline recording failed. Couldn't parse create data from date \(components[2]) and time \(components[4])")
                 }
-                guard let pmdMeasurementType = try? OfflineRecordingUtils.mapOfflineRecordingFileNameToMeasurementType(fileName:  String(components[5])) else {
-                    throw PolarErrors.polarBleSdkInternalException(description: "Listing offline recording failed. Couldn't parse the pmd type from \(components[5])")
+                
+                let pattern = "([A-Z]+)[0-9]*\\.REC"
+                let regex = try? NSRegularExpression(pattern: pattern, options: [])
+                let originalFileName = String(components[5])
+                let range = NSRange(originalFileName.startIndex..<originalFileName.endIndex, in: originalFileName)
+                
+                let correctedFileName = regex?.stringByReplacingMatches(in: originalFileName, options: [], range: range, withTemplate: "$1.REC") ?? originalFileName
+                
+                guard let pmdMeasurementType = try? OfflineRecordingUtils.mapOfflineRecordingFileNameToMeasurementType(fileName: correctedFileName) else {
+                    throw PolarErrors.polarBleSdkInternalException(description: "Listing offline recording failed. Couldn't parse the pmd type from \(correctedFileName)")
                 }
+                
                 guard let type = try? PolarDataUtils.mapToPolarFeature(from: pmdMeasurementType) else {
                     throw PolarErrors.polarBleSdkInternalException(description: "Listing offline recording failed. Couldn't parse the polar type from pmd type: \(pmdMeasurementType)")
                 }
