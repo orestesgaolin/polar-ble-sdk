@@ -1,6 +1,6 @@
-# SDK for Polar sensors
+# SDK for Polar sensors and watches
 
-This is the official repository of Polar's software development kit. With this SDK you are able to develop your own Android and iOS applications for sensors made by Polar.
+This is the official repository of Polar's software development kit. With this SDK you are able to develop your own Android and iOS applications for sensors and watches made by Polar.
 
 The SDK API uses ReactiveX. You can read more about ReactiveX from their website [reactivex](http://reactivex.io)
 
@@ -14,6 +14,21 @@ The SDK API uses ReactiveX. You can read more about ReactiveX from their website
 - [Third-party code and licenses](#third-party-code-and-licenses)
 
 ## Features 
+### Polar 360
+Polar 360 is a new stylish wearable that is designed for individuals but made for business.  It can be customized by companies and integrated into their own applications and solutions.
+It is a device designed to increase general well-being and to make the lives of end users healthier and happier. 
+
+#### Polar 360 features available by the SDK
+* Heart rate as beats per minute.
+* Acceleration: 50Hz, 16bit resolution, Range 8G
+* PP interval (milliseconds) representing cardiac pulse-to-pulse interval extracted from PPG signal.
+  * PP interval is highly sensitive to movement and shall be used only at rest. 
+* Skin temperature: 1Hz, 2Hz, 4Hz options, 32 bit resolution
+* Battery level
+* [SDK mode](documentation/SdkModeExplained.md)
+  * Acceleration: 12Hz, 25Hz, 50Hz, 100Hz, 200Hz, 400Hz, 16bit resolution, Range: 2G, 4G, 8G, 16G
+* [Offline recording](documentation/OfflineRecordingExplained.md)
+ 
 ### H10 Heart rate sensor
 Most accurate Heart rate sensor in the markets. The H10 is used in the Getting started section of this page. 
 [Store page](https://www.polar.com/en/sensors/h10-heart-rate-sensor)
@@ -73,15 +88,31 @@ Fitness and wellness watch.
 * PP interval (milliseconds) representing cardiac pulse-to-pulse interval extracted from PPG signal.
 * Accelerometer data with sample rate of 50 Hz and range of 8 G. Axis specific acceleration data in mG.
 
-### Vantage V3 watch
-Fitness and wellness watch.
+### Vantage V3 watch and Grit X2 Pro watch
+Polar Vantage V3 is a premium fitness and wellness watch.
 [Store page](https://www.polar.com/en/vantage/v3)
 
-#### Polar Vantage V3 features available by the SDK
+Polar Grit X2 Pro is a premium outdoor watch.
+[Store page](https://www.polar.com/en/grit-x2-pro)
+
+#### Polar Vantage V3 and Grit X2 Pro features available by the SDK
 * Heart rate as beats per minute.
 * Heart rate broadcast.
 * PP interval (milliseconds) representing cardiac pulse-to-pulse interval extracted from PPG signal.
 * Accelerometer data with sample rate of 50 Hz and range of 8 G. Axis specific acceleration data in mG.
+
+### Pacer and Pacer Pro watches
+Fitness and wellness watch.<br />
+Pacer: [Store page](https://www.polar.com/en/pacer)<br />
+Pacer Pro: [Store page](https://www.polar.com/en/pacer-pro)
+
+#### Polar Pacer and Pacer Pro features available by the SDK
+* Heart rate as beats per minute.
+* Heart rate broadcast.
+* PP interval (milliseconds) representing cardiac pulse-to-pulse interval extracted from PPG signal.
+> PP interval is highly sensitive to movement and shall be used only at rest.
+* Accelerometer data with sample rate of 50 Hz and range of 8 G. Axis specific acceleration data in mG.
+* [SDK mode](documentation/SdkModeExplained.md) from version 2.0 onwards.
 
 ## Project structure
 * [polar-sdk-ios](polar-sdk-ios/) contains source documentation for the iOS SDK source
