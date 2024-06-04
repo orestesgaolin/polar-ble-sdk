@@ -10,7 +10,7 @@
 - **FIX:** FIXED IN VERITY SENSE FIRMWARE 2.1.0      
 
 #### Issue 2
-- **Firmware:** all firmwares
+- **Firmware:** Fixed available from 2.2.6
 - **Feature:** Battery status
 - **Problem:** When the Polar Verity Sense is plugged into the charger (i.e. connected with the USB), the battery status is not correctly reported by the Polar Verity Sense. The reported battery level is the battery level at the time charging was started, but even though the charging is progressing the status of the battery level is not updated. 
 - **Workaround:** 
@@ -30,6 +30,13 @@
 - **Problem:** H10 disconnects the BLE connection after 45 seconds timeout when H10 is removed from strap. The BLE disconnect cancels the reading of the internal recording saved to H10 memory. This is problematic in cases when long recording is saved to H10 memory, and reading of it may take tens of seconds.   
 - **Workaround:** 
     - keep H10 attached on strap and strap worn by the user
+      
+#### Issue 2
+- **Firmware:** all firmwares
+- **Feature:** Terminate data streaming
+- **Problem:** Streaming of ECG and ACC data shall always be terminated by the phone application. If this is not done , H10 stays on until battery is removed or empty. This happens also when removing the sensor from the strap.
+- **Workaround:** 
+    - Make sure to terminate connection by the phone before removing sensor from the strap
 
 ## Polar OH1
 #### Issue 1
