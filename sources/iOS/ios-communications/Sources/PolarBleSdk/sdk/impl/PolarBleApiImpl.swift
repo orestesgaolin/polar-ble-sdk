@@ -2148,7 +2148,6 @@ extension PolarBleApiImpl: PolarBleApi  {
         guard let client = session.fetchGattClient(BlePsFtpClient.PSFTP_SERVICE) as? BlePsFtpClient else {
           return nil
         }
-        self.sendInitializationAndStartSyncNotifications(client: client)
         
         guard let deviceInfo = PolarFirmwareUpdateUtils.readDeviceFirmwareInfo(client: client, deviceId: identifier) else {
           return nil
